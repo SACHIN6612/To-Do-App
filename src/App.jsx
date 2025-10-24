@@ -1,88 +1,31 @@
-import { useState, useEffect } from "react";
-import "./App.css";
+import { useState } from "react";
+import '../src/App.css'
 
-function App() {
-  const [task, setTask] = useState("");         // Input field
-  const [tasks, setTasks] = useState(() => {    // Tasks array
-    const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
-  const [editIndex, setEditIndex] = useState(null); // Track editing task
+function Todo() {
+  const [task, setTask] = useState("");
+  const [list, setList] = useState([]);
 
-  // Save tasks to localStorage whenever tasks change
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  // Add or update task
-  const handleAddUpdate = () => {
+  const addTask = () => {
     if (task.trim() === "") return;
-
-    if (editIndex !== null) {
-      // Update existing task
-      const newTasks = [...tasks];
-      newTasks[editIndex].text = task;
-      setTasks(newTasks);
-      setEditIndex(null); // reset edit mode
-    } else {
-      // Add new task
-      setTasks([...tasks, { text: task, completed: false }]);
-    }
-
-    setTask(""); // Clear input
-  };
-
-  // Edit task
-  const handleEdit = (index) => {
-    setTask(tasks[index].text);
-    setEditIndex(index);
-  };
-
-  // Toggle completed
-  const toggleTask = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
-  };
-
-  // Delete task
-  const deleteTask = (index) => {
-    const newTasks = tasks.filter((_, i) => i !== index);
-    setTasks(newTasks);
+    setList([...list, task]);
+    setTask("");
   };
 
   return (
-    <div className="container">
-      <h1>React To-Do (Add / Update / Delete)</h1>
-      <div className="input-area">
-        <input
-          type="text"
-          placeholder="Enter task"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-        />
-        <button onClick={handleAddUpdate}>
-          {editIndex !== null ? "Update" : "Add"}
-        </button>
-      </div>
+    <div className="content">
+      <input
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        placeholder="Enter task"
+      />
+      <button onClick={addTask}>Add</button>
 
       <ul>
-        {tasks.map((t, index) => (
-          <li key={index} className={t.completed ? "completed" : ""}>
-            <span onClick={() => toggleTask(index)}>{t.text}</span>
-            <div>
-              <button onClick={() => handleEdit(index)} className="edit-btn">
-                Edit
-              </button>
-              <button onClick={() => deleteTask(index)} className="delete-btn">
-                Delete
-              </button>
-            </div>
-          </li>
+        {list.map((t, i) => (
+          <li key={i}>{t}</li>
         ))}
       </ul>
     </div>
   );
 }
-
-export default App;
+export default Todo;

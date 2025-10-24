@@ -39,9 +39,15 @@ h1 {
   margin-bottom: 20px;
 }
 
+input {
+  height: 40px;
+  width: 200px;
+}
+
 input[type="text"] {
   width: 70%;
-  padding: 10px 12px;
+  height: 1200px;
+  padding: 100px 120px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 16px;
