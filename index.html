@@ -1,13 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To Do List</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do App</title>
+</head>
+<body>
+  <input type="text" id="userInput" placeholder="Enter Task">
+  <button onclick="addTask()">Add Task</button>
+
+  <ul id="task-list"></ul>
+
+  <script>
+    function addTask(){
+      let inputValue = document.getElementById("userInput").value;
+      let list = document.createElement("li");
+      list.innerText = inputValue;
+      let delbtn = document.createElement("button");
+      delbtn.innerText = "Delete";
+      delbtn.onclick = function(){
+        list.remove();
+      }
+      list.append(delbtn);
+      document.getElementById("task-list").append(list);
+      document.getElementById("userInput").innerText = "";
+    }
+  </script>
+</body>
 </html>
