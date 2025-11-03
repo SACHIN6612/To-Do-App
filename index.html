@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To Do App</title>
-</head>
-<body>
-  <input type="text" id="userInput" placeholder="Enter Task">
-  <button onclick="addTask()">Add Task</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+  </head>
+  <body>
+    <input type="text" id="taskInput" placeholder="Enter Task" />
+    <button id="addBtn">Add Task</button>
 
-  <ul id="task-list"></ul>
+    <ul id="taskList"></ul>
 
-  <script>
-    function addTask(){
-      let inputValue = document.getElementById("userInput").value;
-      let list = document.createElement("li");
-      list.innerText = inputValue;
-      let delbtn = document.createElement("button");
-      delbtn.innerText = "Delete";
-      delbtn.onclick = function(){
-        list.remove();
-      }
-      list.append(delbtn);
-      document.getElementById("task-list").append(list);
-      document.getElementById("userInput").innerText = "";
-    }
-  </script>
-</body>
+    <script>
+      document.getElementById("addBtn").addEventListener("click", function () {
+        let taskValue = document.getElementById("taskInput").value;
+
+        if (taskValue === "") {
+          alert("Please enter a task!");
+          return;
+        }
+
+        // Create li
+        let li = document.createElement("li");
+        li.innerText = taskValue + " ";
+
+        // Create delete button
+        let delBtn = document.createElement("button");
+        delBtn.innerText = "Delete";
+        delBtn.style.marginLeft = "10px";
+
+        // When delete button is clicked → remove li
+        delBtn.addEventListener("click", function () {
+          li.remove();
+        });
+
+        // Append delete button inside li
+        li.appendChild(delBtn);
+
+        // Add li to ul
+        document.getElementById("taskList").appendChild(li);
+
+        // Clear input box
+        document.getElementById("taskInput").value = "";
+      });
+    </script>
+  </body>
 </html>
